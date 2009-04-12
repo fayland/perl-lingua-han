@@ -1,0 +1,20 @@
+---
+name: Lingua-Han-Stroke
+version: 0.06
+author:
+  - 'Fayland Lam <fayland@gmail.com>'
+abstract: Retrieve the stroke count of Chinese character.
+license: perl
+resources:
+  license: http://dev.perl.org/licenses/
+build_requires:
+  Lingua::Han::Utils: 0
+  Test::More: 0
+provides:
+  Lingua::Han::Stroke:
+    file: lib/Lingua/Han/Stroke.pm
+    version: 0.06
+generated_by: Module::Build version 0.2808
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

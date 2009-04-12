@@ -1,0 +1,12 @@
+Build.PL
+Changes
+lib/Lingua/Han/Cantonese.pm
+lib/Lingua/Han/Cantonese/Cantonese.dat
+MANIFEST			This list of files
+META.yml
+README
+t/00-load.t
+t/1-gb2312.t
+t/2-utf8.t
+t/pod.t
+Makefile.PL

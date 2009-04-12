@@ -1,0 +1,12 @@
+Build.PL
+Changes
+lib/Lingua/Han/PinYin.pm
+lib/Lingua/Han/PinYin/Mandarin.dat
+Makefile.PL
+MANIFEST			This list of files
+META.yml
+README
+t/1-gb2312.t
+t/2-utf8.t
+t/3-gb2312-tone.t
+t/4-utf8-tone.t

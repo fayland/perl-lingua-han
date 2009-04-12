@@ -1,0 +1,11 @@
+Build.PL
+Changes
+lib/Lingua/Han/Utils.pm
+MANIFEST			This list of files
+META.yml
+README
+t/00-load.t
+t/not_utf8.t
+t/pod.t
+t/utf8.t
+Makefile.PL

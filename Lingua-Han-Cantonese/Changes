@@ -1,0 +1,13 @@
+Revision history for Lingua-Han-Cantonese
+
+0.06    2008.4.11
+        require Lingua::Han::Utils 0.10
+
+0.05    2008.4.8
+        use the recent Unicode.txt
+
+0.04    2006.9.10
+        Update to Unicode 5.0
+
+0.01    Date/time
+        First version, released on an unsuspecting world.

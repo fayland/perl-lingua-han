@@ -1,0 +1,11 @@
+Build.PL
+Changes
+lib/Lingua/Han/Stroke.pm
+lib/Lingua/Han/Stroke/Stroke.dat
+MANIFEST
+README
+t/00-load.t
+t/Lingua-Han-StrokeCount.t
+t/pod.t
+META.yml
+Makefile.PL
