@@ -90,7 +90,7 @@ if not(I mean it's not a Chinese character), returns the original word;
 
 default is 0. if tone is needed, plz set this to 1.
 
-=back 
+=back 
 
 =head1 CAVEAT
 
