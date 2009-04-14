@@ -8,45 +8,50 @@ use File::Spec;
 use Lingua::Han::Utils qw/Unihan_value/;
 
 sub new {
-	my $class = shift;
-	my $dir = __FILE__; $dir =~ s/\.pm//o;
-	-d $dir or die "Directory $dir nonexistent!";
-	my $self = { @_ };
-	my %py;
-	my $file = File::Spec->catfile($dir, 'Mandarin.dat');
-	open(FH, $file)	or die "$file: $!";
-	while(<FH>) {
-		my ($uni, $py) = split(/\s+/);
-		$py{$uni} = $py;
-	}
-	close(FH);
-	$self->{'py'} = \%py;
-	return bless $self => $class;
+    my $class = shift;
+    my $dir   = __FILE__;
+    $dir =~ s/\.pm//o;
+    -d $dir or die "Directory $dir nonexistent!";
+    my $self = {@_};
+    my %py;
+    my $file = File::Spec->catfile( $dir, 'Mandarin.dat' );
+    open( FH, $file ) or die "$file: $!";
+
+    while (<FH>) {
+        my ( $uni, $py ) = split(/\s+/);
+        $py{$uni} = $py;
+    }
+    close(FH);
+    $self->{'py'} = \%py;
+    return bless $self => $class;
 }
 
 sub han2pinyin {
-	my ($self, $hanzi) = @_;
-	
-	my @code = Unihan_value($hanzi);
+    my ( $self, $hanzi ) = @_;
 
-	my @result;
-	foreach my $code (@code) {
-		my $value = $self->{'py'}->{$code};
-		if (defined $value) {
-			$value =~ s/\d//isg unless ($self->{'tone'});
-		} else {
-			# if it's not a Chinese, return original word
-			$value = pack("U*", hex $code);
-		}
-		push @result, lc $value;
-	}
-	
-	return wantarray ? @result : join('', @result);
+    my @code = Unihan_value($hanzi);
+
+    my @result;
+    foreach my $code (@code) {
+        my $value = $self->{'py'}->{$code};
+        if ( defined $value ) {
+            $value =~ s/\d//isg unless ( $self->{'tone'} );
+        }
+        else {
+
+            # if it's not a Chinese, return original word
+            $value = pack( "U*", hex $code );
+        }
+        push @result, lc $value;
+    }
+
+    return wantarray ? @result : join( '', @result );
 
 }
 
 1;
 __END__
+
 =encoding utf8
 
 =head1 NAME
