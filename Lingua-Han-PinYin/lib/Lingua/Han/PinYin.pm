@@ -5,53 +5,43 @@ use vars qw($VERSION);
 $VERSION = '0.12';
 
 use File::Spec;
-use Lingua::Han::Utils qw/csplit Unihan_value/;
+use Lingua::Han::Utils qw/Unihan_value/;
 
 sub new {
-    my $class = shift;
-    my $dir = __FILE__; $dir =~ s/\.pm//o;
-    -d $dir or die "Directory $dir nonexistent!";
-    my $self = { @_ };
-    my %py;
-    my $file = File::Spec->catfile($dir, 'Mandarin.dat');
-    open(FH, $file) or die "$file: $!";
-    while (<FH>) {
-	my ($uni, $py) = split(/\s+/);
-	$py{$uni} = $py;
-    }
-    close(FH);
-    $self->{'py'} = \%py;
-    return bless $self => $class;
+	my $class = shift;
+	my $dir = __FILE__; $dir =~ s/\.pm//o;
+	-d $dir or die "Directory $dir nonexistent!";
+	my $self = { @_ };
+	my %py;
+	my $file = File::Spec->catfile($dir, 'Mandarin.dat');
+	open(FH, $file)	or die "$file: $!";
+	while(<FH>) {
+		my ($uni, $py) = split(/\s+/);
+		$py{$uni} = $py;
+	}
+	close(FH);
+	$self->{'py'} = \%py;
+	return bless $self => $class;
 }
 
 sub han2pinyin {
-    my ($self, $hanzi) = @_;
+	my ($self, $hanzi) = @_;
+	
+	my @code = Unihan_value($hanzi);
 
-    my @words = csplit($hanzi);
-
-    my @result;
-    foreach my $word (@words) {
-	my $value;
-	# convert only normal Chinese letter. Ignore Chinese symbols
-	# which fall within [0xa1,0xb0) region. 0xb0==0260
-	if ($word =~ /[\260-\377]./) {
-	    my $code = Unihan_value($word);
-	    $value = $self->{'py'}->{$code};
-	    if (defined $value) {
-		$value =~ s/\d//isg unless ($self->{'tone'});
-		$value = lc $value;
-	    } else {
-		# not found in dictionary, return original word
-		$value = $word;
-	    }
-	} else {
-	    # if it's not normal Chinese, return original word
-	    $value = $word;
+	my @result;
+	foreach my $code (@code) {
+		my $value = $self->{'py'}->{$code};
+		if (defined $value) {
+			$value =~ s/\d//isg unless ($self->{'tone'});
+		} else {
+			# if it's not a Chinese, return original word
+			$value = pack("U*", hex $code);
+		}
+		push @result, lc $value;
 	}
-	push @result, $value;
-    }
-
-    return wantarray ? @result : join('', @result);
+	
+	return wantarray ? @result : join('', @result);
 
 }
 
