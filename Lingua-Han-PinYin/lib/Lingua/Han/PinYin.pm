@@ -26,6 +26,20 @@ sub new {
     return bless $self => $class;
 }
 
+sub han2pinyin1 {
+    my ($self, $word) = @_;
+    my $code = Unihan_value($word);
+    my $value = $self->{'py'}->{$code};
+    if (defined $value) {
+       $value =~ s/\d//isg unless ($self->{'tone'});
+       $value = lc $value;
+    } else {
+       # not found in dictionary, return original word
+       $value = $word;
+    }
+    return $value;
+}
+
 sub han2pinyin {
     my ( $self, $hanzi ) = @_;
 
@@ -38,7 +52,6 @@ sub han2pinyin {
             $value =~ s/\d//isg unless ( $self->{'tone'} );
         }
         else {
-
             # if it's not a Chinese, return original word
             $value = pack( "U*", hex $code );
         }
@@ -47,6 +60,16 @@ sub han2pinyin {
 
     return wantarray ? @result : join( '', @result );
 
+}
+
+sub gb2pinyin {
+    my ($self, $hanzi) = @_;
+
+    # convert only normal Chinese letter. Ignore Chinese symbols
+    # which fall within [0xa1,0xb0) region. 0xb0==0260
+    # if it is not normal Chinese, retain original characters
+    $hanzi =~ s/[\260-\377][\200-\377]/$self->han2pinyin1($&)/ge;
+    return $hanzi;
 }
 
 1;
