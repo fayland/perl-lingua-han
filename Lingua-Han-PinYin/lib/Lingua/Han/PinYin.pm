@@ -2,7 +2,7 @@ package Lingua::Han::PinYin;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.12';
+$VERSION = '0.12.1';
 
 use File::Spec;
 use Lingua::Han::Utils qw/Unihan_value/;
@@ -75,7 +75,7 @@ sub gb2pinyin {
 1;
 __END__
 
-=encoding utf8
+=encoding euc-cn
 
 =head1 NAME
 
@@ -86,15 +86,19 @@ Lingua::Han::PinYin - Retrieve the Mandarin(PinYin) of Chinese character(HanZi).
   use Lingua::Han::PinYin;
   
   my $h2p = new Lingua::Han::PinYin();
-  print $h2p->han2pinyin("æˆ‘"); # wo
-  my @result = $h2p->han2pinyin("çˆ±ä½ "); # @result = ('ai', 'ni');
-  
+  print $h2p->han2pinyin("ÎÒ"); # wo
+  # if you are sure to pass 1 Chinese letter at a time, han2pinyin1 is faster
+  print $h2p->han2pinyin1("ÎÒ"); # wo
+  my @result = $h2p->han2pinyin("°®Äã"); # @result = ('ai', 'ni');
+  # if you are sure your encoding is GB2312, gb2pinyin is faster
+  print $h2p->gb2pinyin("I love £¨ººÓï£©Æ´¡ªÒô Ah"); # I love £¨hanyu£©pin¡ªyin Ah
+
   # we can set the tone up
   my $h2p = new Lingua::Han::PinYin(tone => 1);
-  print $h2p->han2pinyin("æˆ‘"); #wo3
-  my @result = $h2p->han2pinyin("çˆ±ä½ "); # @result = ('ai4', 'ni3');
-  print $h2p->han2pinyin("æž—é“"); #lin2dao4
-  print $h2p->han2pinyin("I love ä½™ç‘žåŽ a"); #i love yuruihua a
+  print $h2p->han2pinyin("ÎÒ"); #wo3
+  my @result = $h2p->han2pinyin("°®Äã"); # @result = ('ai4', 'ni3');
+  print $h2p->han2pinyin("ÁÖµÀ"); #lin2dao4
+  print $h2p->han2pinyin("I love ÓàÈð»ª a"); #i love yuruihua a
 
 =head1 DESCRIPTION
 
@@ -122,7 +126,7 @@ default is 0. if tone is needed, plz set this to 1.
 
 =head1 CAVEAT
 
-we convert Ãœ to V after version 0.06
+The ascii 'v' is used instead of the unicode 'yu' Since version 0.06.
 
 =head1 SEE ALSO
 
