@@ -160,7 +160,7 @@ The ascii 'v' is used instead of the unicode 'yu' Since version 0.06.
 
 L<Unicode::Unihan>
 
-=head1 AUTHOR*
+=head1 AUTHORS
 
 Fayland Lam, C<< <fayland at gmail.com> >>
 
