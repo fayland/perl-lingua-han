@@ -12,6 +12,11 @@ my $builder = Module::Build->new(
     	'Lingua::Han::Utils' => 0,
         'Test::More' => 0,
     },
+    meta_merge     => {
+        resources => {
+            repository => 'http://github.com/fayland/perl-lingua-han/tree/master',
+        }
+    },
 );
 $builder->add_build_element('dat');
 $builder->create_build_script();
