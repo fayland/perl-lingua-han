@@ -35,7 +35,7 @@ is($pinyin, 'aini', 'correct');
 $pinyin = $h2p->han2pinyin("Ç®Ñ§É­");
 is($pinyin, 'qianxuesen', 'correct');
 $pinyin = $h2p->han2pinyin("I love ÓàÈð»ª a");
-is($pinyin, 'i love yuruihua a', 'correct');
+is($pinyin, 'I love yuruihua a', 'correct');
 
 $pinyin = $h2p->gb2pinyin("°®¡ªÄã¡ª");
 is($pinyin, 'ai¡ªni¡ª', 'correct');

@@ -17,8 +17,14 @@ sub new {
     my $file = File::Spec->catfile( $dir, 'Mandarin.dat' );
     open( FH, $file ) or die "$file: $!";
 
-    while (<FH>) {
-        my ( $uni, $py ) = split(/\s+/);
+    while (my $line = <FH>) {
+        chomp($line);
+        my ( $uni, $py );
+        if ( $self->{duoyinzi} ) {
+            ( $uni, $py ) = split(/\s+/, $line, 2);
+        } else {
+            ( $uni, $py ) = split(/\s+/, $line);
+        }
         $py{$uni} = $py;
     }
     close(FH);
@@ -31,11 +37,10 @@ sub han2pinyin1 {
     my $code = Unihan_value($word);
     my $value = $self->{'py'}->{$code};
     if (defined $value) {
-       $value =~ s/\d//isg unless ($self->{'tone'});
-       $value = lc $value;
+        $value = $self->_fix_val( $value );
     } else {
-       # not found in dictionary, return original word
-       $value = $word;
+        # not found in dictionary, return original word
+        $value = $word;
     }
     return $value;
 }
@@ -49,13 +54,13 @@ sub han2pinyin {
     foreach my $code (@code) {
         my $value = $self->{'py'}->{$code};
         if ( defined $value ) {
-            $value =~ s/\d//isg unless ( $self->{'tone'} );
+            $value = $self->_fix_val( $value );
         }
         else {
             # if it's not a Chinese, return original word
             $value = pack( "U*", hex $code );
         }
-        push @result, lc $value;
+        push @result, $value;
     }
 
     return wantarray ? @result : join( '', @result );
@@ -70,6 +75,22 @@ sub gb2pinyin {
     # if it is not normal Chinese, retain original characters
     $hanzi =~ s/[\260-\377][\200-\377]/$self->han2pinyin1($&)/ge;
     return $hanzi;
+}
+
+sub _fix_val {
+    my ( $self, $value ) = @_;
+    
+    unless ($self->{'tone'}) {
+        $value =~ s/\d//isg;
+        if ( $self->{duoyinzi} ) { # remove duplication
+            my @duoyinzi = split(/\s+/, $value);
+            my %saw;
+            my @out = grep(!$saw{$_}++, @duoyinzi);
+            $value = join(' ', @out);
+        }
+    }
+    
+    return lc($value);
 }
 
 1;

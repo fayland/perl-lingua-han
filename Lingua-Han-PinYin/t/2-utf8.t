@@ -28,4 +28,4 @@ is($pinyin, 'aini', 'correct');
 $pinyin = $h2p->han2pinyin("钱学森");
 is($pinyin, 'qianxuesen', 'correct');
 $pinyin = $h2p->han2pinyin("I love 余瑞华 a");
-is($pinyin, 'i love yuruihua a', 'correct');
+is($pinyin, 'I love yuruihua a', 'correct');
