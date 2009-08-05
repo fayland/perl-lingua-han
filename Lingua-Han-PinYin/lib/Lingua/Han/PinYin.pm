@@ -1,10 +1,10 @@
 package Lingua::Han::PinYin;
 
 use strict;
-use vars qw($VERSION);
-$VERSION = '0.12.1';
+use warnings;
+our $VERSION = '0.12.2';
 
-use File::Spec;
+use File::Spec ();
 use Lingua::Han::Utils qw/Unihan_value/;
 
 sub new {
@@ -107,10 +107,13 @@ Lingua::Han::PinYin - Retrieve the Mandarin(PinYin) of Chinese character(HanZi).
   use Lingua::Han::PinYin;
   
   my $h2p = new Lingua::Han::PinYin();
+  
+  # han2pinyin
   print $h2p->han2pinyin("ÎÒ"); # wo
+  my @result = $h2p->han2pinyin("°®Äã"); # @result = ('ai', 'ni');
+  
   # if you are sure to pass 1 Chinese letter at a time, han2pinyin1 is faster
   print $h2p->han2pinyin1("ÎÒ"); # wo
-  my @result = $h2p->han2pinyin("°®Äã"); # @result = ('ai', 'ni');
   # if you are sure your encoding is GB2312, gb2pinyin is faster
   print $h2p->gb2pinyin("I love £¨ººÓï£©Æ´¡ªÒô Ah"); # I love £¨hanyu£©pin¡ªyin Ah
 
@@ -120,14 +123,14 @@ Lingua::Han::PinYin - Retrieve the Mandarin(PinYin) of Chinese character(HanZi).
   my @result = $h2p->han2pinyin("°®Äã"); # @result = ('ai4', 'ni3');
   print $h2p->han2pinyin("ÁÖµÀ"); #lin2dao4
   print $h2p->han2pinyin("I love ÓàÈð»ª a"); #i love yuruihua a
+  
+  # for polyphone(duoyinzi)
+  my $h2p = new Lingua::Han::PinYin(duoyinzi => 1, tone => 1);
+  print $h2p->han2pinyin("ÐÐ"); # 'xing2 hang2 xing4 hang4 heng2'
 
 =head1 DESCRIPTION
 
 There is a Chinese document @ L<http://www.fayland.org/project/Han-PinYin/>. It tells why and how I write this module.
-
-=head1 RESTRICTIONS
-
-if the character is polyphone(DuoYinZi), we can B<NOT> point out the correct one.
 
 =head1 RETURN VALUE
 
@@ -143,6 +146,10 @@ if not(I mean it's not a Chinese character), returns the original word;
 
 default is 0. if tone is needed, plz set this to 1.
 
+=item duoyinzi => 1|0
+
+default is 0.
+
 =back 
 
 =head1 CAVEAT
@@ -153,15 +160,15 @@ The ascii 'v' is used instead of the unicode 'yu' Since version 0.06.
 
 L<Unicode::Unihan>
 
-=head1 AUTHOR
+=head1 AUTHOR*
 
-Fayland, fayland@gmail.com
+Fayland Lam, C<< <fayland at gmail.com> >>
 
-feel free to contact me.
+Tong Sun, C<< <suntong at cpan.org> >>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2005 Fayland All rights reserved.
+Copyright (c) 2005-2009 *AUTHORS* All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

@@ -1,5 +1,8 @@
 Revision history for Perl extension Lingua::Han::PinYin.
 
+0.12.2  Wed Aug 5 17:03:03 2009
+    - add option duoyinzi
+
 0.12  Fri Aug 22 14:51:00 2008
     - Change 6C49 YI4 HAN4 to 6C49 HAN4 YI4, Thanks, nsnake
 
