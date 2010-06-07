@@ -2,10 +2,10 @@ Build.PL
 Changes
 lib/Lingua/Han/Stroke.pm
 lib/Lingua/Han/Stroke/Stroke.dat
-MANIFEST
+Makefile.PL
+MANIFEST			This list of files
+META.yml
 README
 t/00-load.t
 t/Lingua-Han-StrokeCount.t
 t/pod.t
-META.yml
-Makefile.PL
