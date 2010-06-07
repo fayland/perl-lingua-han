@@ -24,3 +24,4 @@
 \.bak$
 \#$
 \b\.#
+^MYMETA.yml$
