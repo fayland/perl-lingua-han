@@ -1,5 +1,8 @@
 Revision history for Lingua-Han-Cantonese
 
+0.07    2010.6.7
+        update to lastest Unihan database
+
 0.06    2008.4.11
         require Lingua::Han::Utils 0.10
 
