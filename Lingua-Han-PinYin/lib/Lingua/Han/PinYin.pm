@@ -24,7 +24,7 @@ sub new {
         my ( $uni, $py ) = split(/\s+/, $line);
         $py{$uni} = $py;
     }
-    close$fh;
+    close($fh);
 
     $args{'py'} = \%py;
 
