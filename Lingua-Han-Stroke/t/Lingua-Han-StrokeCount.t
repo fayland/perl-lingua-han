@@ -14,4 +14,4 @@ use Lingua::Han::Stroke;
 # its man page ( perldoc Test::More ) for help writing this test script.
 
 my $stroke = Lingua::Han::Stroke->new();
-is($stroke->stroke("ÎÒ"), 7, "Correct");
+is($stroke->stroke("å¥½"), 6, "Correct");

@@ -1,5 +1,8 @@
 Revision history for Lingua-Han-Stroke
 
+0.09    2012.3.28
+        fix pod encoding issue, RT 76117
+
 0.08    2012.3.28
         update database '08-Aug-2011 17:45'
 

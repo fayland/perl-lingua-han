@@ -29,7 +29,7 @@
    "provides" : {
       "Lingua::Han::Stroke" : {
          "file" : "lib/Lingua/Han/Stroke.pm",
-         "version" : "0.08"
+         "version" : "0.09"
       }
    },
    "release_status" : "stable",
@@ -41,5 +41,5 @@
          "url" : "http://github.com/fayland/perl-lingua-han/tree/master"
       }
    },
-   "version" : "0.08"
+   "version" : "0.09"
 }

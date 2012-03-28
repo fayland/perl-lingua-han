@@ -3,7 +3,7 @@ package Lingua::Han::Stroke;
 use warnings;
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.08';
+$VERSION = '0.09';
 
 use File::Spec;
 use Lingua::Han::Utils qw/Unihan_value/;
@@ -43,7 +43,7 @@ Lingua::Han::Stroke - Retrieve the stroke count of Chinese character.
     use Lingua::Han::Stroke;
     my $stroke = Lingua::Han::Stroke->new();
 
-    print $stroke->stroke("ÎÒ"); # 7
+    print $stroke->stroke("å¥½"); # 6
 
 =head1 DESCRIPTION
 
@@ -93,7 +93,7 @@ L<http://search.cpan.org/dist/Lingua-Han-Stroke>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2005 Fayland Lam, all rights reserved.
+Copyright 2005-2012 Fayland Lam, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

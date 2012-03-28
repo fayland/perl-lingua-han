@@ -17,8 +17,8 @@ name: Lingua-Han-Stroke
 provides:
   Lingua::Han::Stroke:
     file: lib/Lingua/Han/Stroke.pm
-    version: 0.08
+    version: 0.09
 resources:
   license: http://dev.perl.org/licenses/
   repository: http://github.com/fayland/perl-lingua-han/tree/master
-version: 0.08
+version: 0.09
