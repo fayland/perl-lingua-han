@@ -9,27 +9,26 @@ use Lingua::Han::Utils qw/Unihan_value/;
 
 sub new {
     my $class = shift;
+
     my $dir   = __FILE__;
     $dir =~ s/\.pm//o;
-    -d $dir or die "Directory $dir nonexistent!";
-    my $self = {@_};
+    -d $dir or die "Directory $dir does not exists, please consider to reinstall this module.";
+
+    my %args = (@_ % 2 == 1) ? %{ $_[0] } : (@_);
+
     my %py;
     my $file = File::Spec->catfile( $dir, 'Mandarin.dat' );
-    open( FH, $file ) or die "$file: $!";
-
-    while (my $line = <FH>) {
+    open(my $fh, '<', $file) or die "Can't open $file: $!";
+    while (my $line = <$fh>) {
         chomp($line);
-        my ( $uni, $py );
-        if ( $self->{duoyinzi} ) {
-            ( $uni, $py ) = split(/\s+/, $line, 2);
-        } else {
-            ( $uni, $py ) = split(/\s+/, $line);
-        }
+        my ( $uni, $py ) = split(/\s+/, $line);
         $py{$uni} = $py;
     }
-    close(FH);
-    $self->{'py'} = \%py;
-    return bless $self => $class;
+    close$fh;
+
+    $args{'py'} = \%py;
+
+    return bless \%args => $class;
 }
 
 sub han2pinyin1 {
@@ -80,23 +79,43 @@ sub gb2pinyin {
 sub _fix_val {
     my ( $self, $value ) = @_;
 
-    unless ($self->{'tone'}) {
-        $value =~ s/\d//isg;
-        if ( $self->{duoyinzi} ) { # remove duplication
-            my @duoyinzi = split(/\s+/, $value);
-            my %saw;
-            my @out = grep(!$saw{$_}++, @duoyinzi);
-            $value = join(' ', @out);
-        }
+    if ($self->{unicode}) {
+        return $value;
     }
 
-    return lc($value);
+    # convert into ascii
+    $value =~ s/Å«/u/g and $value .= '1';
+    $value =~ s/Ä«/i/g and $value .= '1';
+    $value =~ s/Å/o/g and $value .= '1';
+    $value =~ s/Ä/a/g and $value .= '1';
+    $value =~ s/Ä“/e/g and $value .= '1';
+
+    $value =~ s/Ã­/i/g and $value .= '2';
+    $value =~ s/Ã©/e/g and $value .= '2';
+    $value =~ s/Ãº/u/g and $value .= '2';
+    $value =~ s/Ã³/o/g and $value .= '2';
+    $value =~ s/Ã¡/a/g and $value .= '2';
+
+    $value =~ s/Ä›/e/g and $value .= '3';
+    $value =~ s/ÇŽ/a/g and $value .= '3';
+    $value =~ s/Ç’/o/g and $value .= '3';
+    $value =~ s/Ç”/u/g and $value .= '3';
+    $value =~ s/Ç/i/g and $value .= '3';
+
+    $value =~ s/Ã²/o/g and $value .= '4';
+    $value =~ s/Ã /a/g and $value .= '4';
+    $value =~ s/Ã¨/e/g and $value .= '4';
+    $value =~ s/Ã¹/u/g and $value .= '4';
+    $value =~ s/Ã¬/i/g and $value .= '4';
+
+    $value =~ s/\d//g unless $self->{tone};
+    return $value;
 }
 
 1;
 __END__
 
-=encoding euc-cn
+=encoding utf8
 
 =head1 NAME
 
@@ -106,55 +125,66 @@ Lingua::Han::PinYin - Retrieve the Mandarin(PinYin) of Chinese character(HanZi).
 
   use Lingua::Han::PinYin;
 
-  my $h2p = new Lingua::Han::PinYin();
+  my $h2p = Lingua::Han::PinYin->new();
 
   # han2pinyin
-  print $h2p->han2pinyin("ÎÒ"); # wo
-  my @result = $h2p->han2pinyin("°®Äã"); # @result = ('ai', 'ni');
-
-  # if you are sure to pass 1 Chinese letter at a time, han2pinyin1 is faster
-  print $h2p->han2pinyin1("ÎÒ"); # wo
-  # if you are sure your encoding is GB2312, gb2pinyin is faster
-  print $h2p->gb2pinyin("I love £¨ººÓï£©Æ´¡ªÒô Ah"); # I love £¨hanyu£©pin¡ªyin Ah
-
-  # we can set the tone up
-  my $h2p = new Lingua::Han::PinYin(tone => 1);
-  print $h2p->han2pinyin("ÎÒ"); #wo3
-  my @result = $h2p->han2pinyin("°®Äã"); # @result = ('ai4', 'ni3');
-  print $h2p->han2pinyin("ÁÖµÀ"); #lin2dao4
-  print $h2p->han2pinyin("I love ÓàÈð»ª a"); #i love yuruihua a
-
-  # for polyphone(duoyinzi)
-  my $h2p = new Lingua::Han::PinYin(duoyinzi => 1, tone => 1);
-  print $h2p->han2pinyin("ÐÐ"); # 'xing2 hang2 xing4 hang4 heng2'
+  my $pinyin = $h2p->han2pinyin("æˆ‘çˆ±ä½ "); # woaini
+  my @result = $h2p->han2pinyin("çˆ±ä½ "); # @result = ('ai', 'ni');
 
 =head1 DESCRIPTION
 
-There is a Chinese document @ L<http://www.fayland.org/project/Han-PinYin/>. It tells why and how I write this module.
+Convert Mandarin to its spell
 
-=head1 RETURN VALUE
+=head2 RETURN VALUE
 
-Usually, it returns its pinyin/spell. It includes more than 20,000 words (from Unicode.org Unihan.txt, version 4.1.0).
+Usually, it returns its pinyin/spell.
 
-if not(I mean it's not a Chinese character), returns the original word;
+if not (I mean it's not a Chinese character), returns the original word.
 
-=head1 OPTION
+=head2 OPTION
 
 =over 4
 
 =item tone => 1|0
 
-default is 0. if tone is needed, plz set this to 1.
+default is 0. if 1, return B<kua4> instead of B<kua>
 
-=item duoyinzi => 1|0
+    my $h2p = Lingua::Han::PinYin->new(tone => 1);
+    print $h2p->han2pinyin("æˆ‘"); #wo3
+    my @result = $h2p->han2pinyin("çˆ±ä½ "); # @result = ('ai4', 'ni3');
 
-default is 0.
+=item unicode => 1|0
+
+default is 0, if 1, return B<kuÃ > instead of B<kua4> OR B<kua>
+
+    my $h2p = Lingua::Han::PinYin->new(unicode => 1);
+    print $h2p->han2pinyin("å¶é—®"); # yÃ¨wÃ¨n
 
 =back
 
-=head1 CAVEAT
+=head2 METHODS
 
-The ascii 'v' is used instead of the unicode 'yu' Since version 0.06.
+=over 4
+
+=item han2pinyin
+
+    print $h2p->han2pinyin("æž—é“"); #lin2dao4
+    print $h2p->han2pinyin("I love ä½™ç‘žåŽ a"); #i love yuruihua a
+
+=item han2pinyin1
+
+for 1 chinese letter at a time, han2pinyin1 is faster
+
+    # if you are sure to pass 1 Chinese letter at a time, han2pinyin1 is faster
+    print $h2p->han2pinyin1("æˆ‘"); # wo
+
+=item gb2pinyin
+
+if you are sure your encoding is GB2312, gb2pinyin is faster
+
+    print $h2p->gb2pinyin("I love ï¼ˆæ±‰è¯­ï¼‰æ‹¼â€•éŸ³ Ah"); # I love ï¼ˆhanyuï¼‰pinâ€•yin Ah
+
+=back
 
 =head1 SEE ALSO
 
@@ -168,7 +198,7 @@ Tong Sun, C<< <suntong at cpan.org> >>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2005-2009 *AUTHORS* All rights reserved.
+Copyright (c) 2005-2012 *AUTHORS* All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

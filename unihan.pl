@@ -20,7 +20,6 @@ while (<$fh>) {
         } elsif($2 eq 'kMandarin') {
             my $code = $1;
             my $mandarin = $3;
-            $mandarin =~ s/Ü/V/isg;
             print $MANDARIN "$code\t$mandarin\n";
             $m++;
         }
