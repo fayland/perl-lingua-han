@@ -1,5 +1,8 @@
 Revision history for Perl extension Lingua::Han::PinYin.
 
+0.16  Wed Mar 28 12:33 2012
+    - update db to '08-Aug-2011 17:45'
+
 0.15  Mon Jun 7 9:57:00 2010
     - update to lastest Unihan database
 

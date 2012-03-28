@@ -2,7 +2,7 @@ package Lingua::Han::PinYin;
 
 use strict;
 use warnings;
-our $VERSION = '0.15';
+our $VERSION = '0.16';
 
 use File::Spec ();
 use Lingua::Han::Utils qw/Unihan_value/;
@@ -79,7 +79,7 @@ sub gb2pinyin {
 
 sub _fix_val {
     my ( $self, $value ) = @_;
-    
+
     unless ($self->{'tone'}) {
         $value =~ s/\d//isg;
         if ( $self->{duoyinzi} ) { # remove duplication
@@ -89,7 +89,7 @@ sub _fix_val {
             $value = join(' ', @out);
         }
     }
-    
+
     return lc($value);
 }
 
@@ -105,13 +105,13 @@ Lingua::Han::PinYin - Retrieve the Mandarin(PinYin) of Chinese character(HanZi).
 =head1 SYNOPSIS
 
   use Lingua::Han::PinYin;
-  
+
   my $h2p = new Lingua::Han::PinYin();
-  
+
   # han2pinyin
   print $h2p->han2pinyin("我"); # wo
   my @result = $h2p->han2pinyin("爱你"); # @result = ('ai', 'ni');
-  
+
   # if you are sure to pass 1 Chinese letter at a time, han2pinyin1 is faster
   print $h2p->han2pinyin1("我"); # wo
   # if you are sure your encoding is GB2312, gb2pinyin is faster
@@ -123,7 +123,7 @@ Lingua::Han::PinYin - Retrieve the Mandarin(PinYin) of Chinese character(HanZi).
   my @result = $h2p->han2pinyin("爱你"); # @result = ('ai4', 'ni3');
   print $h2p->han2pinyin("林道"); #lin2dao4
   print $h2p->han2pinyin("I love 余瑞华 a"); #i love yuruihua a
-  
+
   # for polyphone(duoyinzi)
   my $h2p = new Lingua::Han::PinYin(duoyinzi => 1, tone => 1);
   print $h2p->han2pinyin("行"); # 'xing2 hang2 xing4 hang4 heng2'
@@ -150,7 +150,7 @@ default is 0. if tone is needed, plz set this to 1.
 
 default is 0.
 
-=back 
+=back
 
 =head1 CAVEAT
 

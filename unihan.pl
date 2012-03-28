@@ -3,6 +3,9 @@
 use strict;
 use warnings;
 
+# get data from http://www.unicode.org/Public/UNIDATA/Unihan.zip
+# and unzip it
+
 open(my $MANDARIN, '>', 'Mandarin.dat') or die $!;
 open(my $CANTONESE, '>', 'Cantonese.dat') or die $!;
 open(my $STROKE, '>', 'Stroke.dat') or die $!;
