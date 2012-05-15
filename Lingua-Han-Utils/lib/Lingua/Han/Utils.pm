@@ -4,7 +4,7 @@ use warnings;
 use strict;
 use base 'Exporter';
 use vars qw/$VERSION @EXPORT_OK/;
-$VERSION = '0.11';
+$VERSION = '0.12';
 @EXPORT_OK = qw/Unihan_value csplit cdecode csubstr clength/;
 
 use Encode;
@@ -27,12 +27,12 @@ sub Unihan_value {
 
 sub csplit {
 	my $word = shift;
-	my $enc = Encode::Guess->guess($word);
+	my $encoding = detect($word);
 	my @return_words;
 	my @code = Unihan_value($word);
 	foreach my $code (@code) {
 		my $value = pack("U*", hex $code);
-		$value = encode($enc->name, $value);
+		$value = encode($encoding, $value);
 		push @return_words, $value if ($value);
 	}
 	return wantarray?@return_words:(join('', @return_words));
