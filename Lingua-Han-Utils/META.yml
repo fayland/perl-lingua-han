@@ -1,20 +1,24 @@
 ---
-name: Lingua-Han-Utils
-version: 0.10
+abstract: 'The utility tools of Chinese character(HanZi)'
 author:
   - 'Fayland Lam <fayland@gmail.com>'
-abstract: The utility tools of Chinese character(HanZi)
-license: perl
-resources:
-  license: http://dev.perl.org/licenses/
 build_requires:
-  Encode::Guess: 0
+  Encode::Detect::CJK: 0
   Test::More: 0
+configure_requires:
+  Module::Build: 0.4
+dynamic_config: 1
+generated_by: 'Module::Build version 0.4, CPAN::Meta::Converter version 2.112150'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Lingua-Han-Utils
 provides:
   Lingua::Han::Utils:
     file: lib/Lingua/Han/Utils.pm
-    version: 0.10
-generated_by: Module::Build version 0.2808
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+    version: 0.11
+resources:
+  license: http://dev.perl.org/licenses/
+  repository: http://github.com/fayland/perl-lingua-han/tree/master
+version: 0.11
