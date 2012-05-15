@@ -4,21 +4,16 @@ use warnings;
 use strict;
 use base 'Exporter';
 use vars qw/$VERSION @EXPORT_OK/;
-$VERSION = '0.10';
+$VERSION = '0.11';
 @EXPORT_OK = qw/Unihan_value csplit cdecode csubstr clength/;
 
 use Encode;
-use Encode::Guess qw/euc-cn/; # XXX? can't explain
+use Encode::Detect::CJK qw(detect);
 
 sub cdecode {
 	my $word = shift;
-	my $enc = Encode::Guess->guess($word);
-	my $encoding;
-	unless (ref($enc)) {
-		$encoding = 'cp936'; # use 'cp936' by default
-	} else {
-		$encoding = $enc->name;
-	}
+	my $encoding = detect($word);
+	$encoding = 'cp936' if $encoding eq 'iso-8859-1'; # hard fix
 	$word = decode($encoding, $word);
 	return $word;
 }
@@ -68,12 +63,12 @@ Lingua::Han::Utils - The utility tools of Chinese character(HanZi)
 =head1 SYNOPSIS
 
     use Lingua::Han::Utils qw/Unihan_value csplit cdecode csubstr clength/;
-    
+
     # cdecode
     # the same as decode('cp936', $word) in ASCII editing mode
     #         and decode('utf8', $word) in Unicode editing mode
     my $word = cdecode($word);
-    
+
     # Unihan_value
     # return the first field of Unihan.txt on unicode.org
     my $word = "我";
@@ -81,12 +76,12 @@ Lingua::Han::Utils - The utility tools of Chinese character(HanZi)
     my $words = "爱你";
     my @unihan = Unihan_value($word); # return (7231, 4F60)
     my $unihan = Unihan_value($word); # return 72314F60
-    
+
     # csplit
     # split the Chinese characters into an array
     my $words = "我爱你";
     my @words = csplit($words); # return ("我", "爱", "你")
-    
+
     # csubstr
     # treat the Chinese characters as one
     # so it's the same as splice(csplit($words), $offset, $length)
@@ -94,7 +89,7 @@ Lingua::Han::Utils - The utility tools of Chinese character(HanZi)
     my @words = csubstr($words, 1, 2); # return ("爱", "你")
     my @words = csubstr($words, 1); # return ("爱", "你", "啊")
     my $words = csubstr($words, 1, 2); # 爱你
-    
+
     # clength
     # treat the Chinese character as one
     my $words = "我爱你";
@@ -122,7 +117,7 @@ split the Chinese characters into an array, English words can be mixed in.
 
 =item csubstr(WORD, OFFSET, LENGTH)
 
-treat the Chinese character as one word, substr it. 
+treat the Chinese character as one word, substr it.
 
 (BE CAFEFUL! it's NOT lvalue, we cann't use csubstr($word, 2, 3) = $REPLACEMENT)
 
