@@ -3,7 +3,7 @@ package Lingua::Han::Cantonese;
 use warnings;
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.07';
+$VERSION = '0.08';
 
 use File::Spec;
 use Lingua::Han::Utils qw/Unihan_value/;
@@ -27,7 +27,7 @@ sub new {
 
 sub han2Cantonese {
 	my ($self, $hanzi) = @_;
-	
+
 	my @code = Unihan_value($hanzi);
 
 	my @result;
@@ -41,7 +41,7 @@ sub han2Cantonese {
 		}
 		push @result, lc $value;
 	}
-	
+
 	return wantarray ? @result : join('', @result);
 
 }
@@ -57,11 +57,11 @@ Lingua::Han::Cantonese - Retrieve the Cantonese(GuangDongHua) of Chinese charact
 =head1 SYNOPSIS
 
   use Lingua::Han::Cantonese;
-  
+
   my $h2p = new Lingua::Han::Cantonese();
   print $h2p->han2Cantonese("我"); # ngo
   my @result = $h2p->han2Cantonese("爱你"); # @result = ('ngoi', 'nei');
-  
+
   # we can set the tone up
   my $h2p = new Lingua::Han::Cantonese(tone => 1);
   print $h2p->han2Cantonese("我"); #ngo5

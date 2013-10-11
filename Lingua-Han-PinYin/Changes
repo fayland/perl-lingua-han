@@ -1,45 +1,35 @@
 Revision history for Perl extension Lingua::Han::PinYin.
 
-0.16  Wed Mar 28 12:33 2012
+0.17  2013-10-11
+    - update db to '26-Feb-2013 15:49'
+
+0.16  2013-03-28
     - update db to '08-Aug-2011 17:45'
     - new args unicode added
     - duoyinzi removed
 
-0.15  Mon Jun 7 9:57:00 2010
+0.15  2010-06-07
     - update to lastest Unihan database
 
-0.14  Wed Aug 10 17:03:03 2009
+0.14  2009-08-10
     - add option duoyinzi
 
-0.12  Fri Aug 22 14:51:00 2008
+0.12  2008-08-22
     - Change 6C49 YI4 HAN4 to 6C49 HAN4 YI4, Thanks, nsnake
 
-0.11    2008.4.9
+0.11  2008-04-09
     - require Lingua::Han::Utils 0.10 and more test cases
 
-0.10    2008.4.9
+0.10  2008-04-09
     - require Lingua::Han::Utils 0.08
 
-0.09    2008.4.8
+0.09  2008-04-08
     - use the recent Unihan.txt
 
-0.08    2008.4.8
-    - require Lingua::Han::Utils 0.06
-
-0.07    2006.9.10
+0.07  2006-09-10
     - Update to Unicode 5.0
 
-0.06
-    - convert Ü to V
-
-0.03
-	- can handle the English-Chinese mixed words now.
-
-0.02  Mon Nov 7 17:42:44 2005
-	- the tone is added
-	- use the lastest Unicode Unihan, some corrections of words.
-
-0.01  Thu Jan  6 16:23:09 2005
+0.01  2005-01-06
 	- original version; created by h2xs 1.23 with options
-		-AXn Lingua::Han::PinYin
-		- change name from Lingua::Han2PinYin
+    - AXn Lingua::Han::PinYin
+    - change name from Lingua::Han2PinYin

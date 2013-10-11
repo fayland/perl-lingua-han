@@ -3,7 +3,7 @@ package Lingua::Han::Stroke;
 use warnings;
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.09';
+$VERSION = '0.10';
 
 use File::Spec;
 use Lingua::Han::Utils qw/Unihan_value/;

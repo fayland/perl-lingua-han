@@ -5,7 +5,7 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test::More tests => 12;
+use Test::More tests => 10;
 BEGIN { use_ok('Lingua::Han::PinYin') };
 
 #########################
@@ -32,12 +32,8 @@ is($pinyin, 'xing', 'correct');
 
 $pinyin = $h2p->han2pinyin("∞Æƒ„");
 is($pinyin, 'aini', 'correct');
-$pinyin = $h2p->han2pinyin("«Æ—ß…≠");
-is($pinyin, 'qianxuesen', 'correct');
 $pinyin = $h2p->han2pinyin("I love ”‡»ª™ a");
 is($pinyin, 'I love yuruihua a', 'correct');
 
 $pinyin = $h2p->gb2pinyin("∞Æ°™ƒ„°™");
 is($pinyin, 'ai°™ni°™', 'correct');
-$pinyin = $h2p->gb2pinyin("I love £®∫∫”Ô£©∆¥“Ù Ah");
-is($pinyin, 'I love £®hanyu£©pinyin Ah', 'correct');
