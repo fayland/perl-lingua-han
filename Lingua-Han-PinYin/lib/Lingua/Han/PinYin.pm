@@ -2,7 +2,7 @@ package Lingua::Han::PinYin;
 
 use strict;
 use warnings;
-our $VERSION = '0.17';
+our $VERSION = '0.18';
 
 use File::Spec ();
 use Lingua::Han::Utils qw/Unihan_value/;
@@ -100,6 +100,7 @@ sub _fix_val {
     $value =~ s/ǎ/a/g and $value .= '3';
     $value =~ s/ǒ/o/g and $value .= '3';
     $value =~ s/ǔ/u/g and $value .= '3';
+    $value =~ s/ǚ/u/g and $value .= '3';
     $value =~ s/ǐ/i/g and $value .= '3';
 
     $value =~ s/ò/o/g and $value .= '4';
