@@ -1,5 +1,8 @@
 Revision history for Perl extension Lingua::Han::PinYin.
 
+0.19  2013-11-11
+    - for ǘ etc. to 'v'
+
 0.18  2013-11-11
     - for unicode ǚ
 

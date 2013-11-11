@@ -2,7 +2,7 @@ package Lingua::Han::PinYin;
 
 use strict;
 use warnings;
-our $VERSION = '0.18';
+our $VERSION = '0.19';
 
 use File::Spec ();
 use Lingua::Han::Utils qw/Unihan_value/;
@@ -85,6 +85,7 @@ sub _fix_val {
 
     # convert into ascii
     $value =~ s/ū/u/g and $value .= '1';
+    $value =~ s/ǖ/u/g and $value .= '1';
     $value =~ s/ī/i/g and $value .= '1';
     $value =~ s/ō/o/g and $value .= '1';
     $value =~ s/ā/a/g and $value .= '1';
@@ -94,19 +95,21 @@ sub _fix_val {
     $value =~ s/é/e/g and $value .= '2';
     $value =~ s/ú/u/g and $value .= '2';
     $value =~ s/ó/o/g and $value .= '2';
+    $value =~ s/ǘ/v/g and $value .= '2';
     $value =~ s/á/a/g and $value .= '2';
 
     $value =~ s/ě/e/g and $value .= '3';
     $value =~ s/ǎ/a/g and $value .= '3';
     $value =~ s/ǒ/o/g and $value .= '3';
     $value =~ s/ǔ/u/g and $value .= '3';
-    $value =~ s/ǚ/u/g and $value .= '3';
+    $value =~ s/ǚ/v/g and $value .= '3';
     $value =~ s/ǐ/i/g and $value .= '3';
 
     $value =~ s/ò/o/g and $value .= '4';
     $value =~ s/à/a/g and $value .= '4';
     $value =~ s/è/e/g and $value .= '4';
     $value =~ s/ù/u/g and $value .= '4';
+    $value =~ s/ǜ/v/g and $value .= '4';
     $value =~ s/ì/i/g and $value .= '4';
 
     $value =~ s/\d//g unless $self->{tone};
