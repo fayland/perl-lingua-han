@@ -2,7 +2,7 @@ package Lingua::Han::PinYin;
 
 use strict;
 use warnings;
-our $VERSION = '0.19';
+our $VERSION = '0.20';
 
 use File::Spec ();
 use Lingua::Han::Utils qw/Unihan_value/;
@@ -59,7 +59,7 @@ sub han2pinyin {
             # if it's not a Chinese, return original word
             $value = pack( "U*", hex $code );
         }
-        push @result, $value;
+        push @result, ($self->{capitalize} ? ucfirst $value : $value);
     }
 
     return wantarray ? @result : join( '', @result );
@@ -163,6 +163,13 @@ default is 0, if 1, return B<kuà> instead of B<kua4> OR B<kua>
 
     my $h2p = Lingua::Han::PinYin->new(unicode => 1);
     print $h2p->han2pinyin("叶问"); # yèwèn
+
+=item capitalize => 1|0
+
+default is 0, if 1, will capitalize each pinyin word
+
+    my $h2p = Lingua::Han::PinYin->new(capitalize => 1);
+    print $h2p->han2pinyin("汉语拼音"); # HanYuPinYin
 
 =back
 

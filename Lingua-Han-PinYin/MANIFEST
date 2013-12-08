@@ -12,3 +12,4 @@ t/2-utf8.t
 t/3-gb2312-tone.t
 t/4-utf8-tone.t
 t/5-unicode.t
+t/6-capitalize.t
