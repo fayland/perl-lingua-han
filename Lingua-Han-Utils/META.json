@@ -1,0 +1,45 @@
+{
+   "abstract" : "The utility tools of Chinese character(HanZi)",
+   "author" : [
+      "Fayland Lam <fayland@gmail.com>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "Module::Build version 0.4203",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Lingua-Han-Utils",
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "Encode::Detect::CJK" : "0",
+            "Test::More" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "Module::Build" : "0.42"
+         }
+      }
+   },
+   "provides" : {
+      "Lingua::Han::Utils" : {
+         "file" : "lib/Lingua/Han/Utils.pm",
+         "version" : "0.13"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "license" : [
+         "http://dev.perl.org/licenses/"
+      ],
+      "repository" : {
+         "url" : "http://github.com/fayland/perl-lingua-han/tree/master"
+      }
+   },
+   "version" : "0.13"
+}

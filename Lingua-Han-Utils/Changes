@@ -1,5 +1,8 @@
 Revision history for Lingua-Han-Utils
 
+0.13    2014-09-16
+        RT 98923 by GUGOD
+
 0.12    2012.05.15
         bug fixes for csplit etc.
 

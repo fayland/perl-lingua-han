@@ -4,7 +4,7 @@ use warnings;
 use strict;
 use base 'Exporter';
 use vars qw/$VERSION @EXPORT_OK/;
-$VERSION = '0.12';
+$VERSION = '0.13';
 @EXPORT_OK = qw/Unihan_value csplit cdecode csubstr clength/;
 
 use Encode;
@@ -20,7 +20,7 @@ sub cdecode {
 
 sub Unihan_value {
 	my $word = shift;
-	$word = cdecode($word);
+	$word = cdecode($word) unless Encode::is_utf8($word);
 	my @unihan = map { uc sprintf("%x",$_) } unpack ("U*", $word);
 	return wantarray?@unihan:(join('', @unihan));
 }
