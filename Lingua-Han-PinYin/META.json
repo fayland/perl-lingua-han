@@ -4,7 +4,7 @@
       "unknown"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.4, CPAN::Meta::Converter version 2.112150",
+   "generated_by" : "Module::Build version 0.421",
    "license" : [
       "perl_5"
    ],
@@ -16,12 +16,12 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.4"
+            "Module::Build" : "0.42"
          }
       },
       "runtime" : {
          "requires" : {
-            "File::Spec" : 0,
+            "File::Spec" : "0",
             "Lingua::Han::Utils" : "0.10"
          }
       }
@@ -29,7 +29,7 @@
    "provides" : {
       "Lingua::Han::PinYin" : {
          "file" : "lib/Lingua/Han/PinYin.pm",
-         "version" : "0.16"
+         "version" : "0.21"
       }
    },
    "release_status" : "stable",
@@ -41,5 +41,5 @@
          "url" : "http://github.com/fayland/perl-lingua-han/tree/master"
       }
    },
-   "version" : "0.16"
+   "version" : "0.21"
 }

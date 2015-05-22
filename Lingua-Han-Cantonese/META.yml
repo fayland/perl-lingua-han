@@ -3,22 +3,23 @@ abstract: 'Retrieve the Cantonese(GuangDongHua) of Chinese character(HanZi).'
 author:
   - 'Fayland Lam <fayland@gmail.com>'
 build_requires:
-  File::Spec: 0
-  Lingua::Han::Utils: 0.10
-  Test::More: 0
+  File::Spec: '0'
+  Lingua::Han::Utils: '0.10'
+  Test::More: '0'
 configure_requires:
-  Module::Build: 0.36
-generated_by: 'Module::Build version 0.3607'
+  Module::Build: '0.42'
+dynamic_config: 1
+generated_by: 'Module::Build version 0.421, CPAN::Meta::Converter version 2.142690'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Lingua-Han-Cantonese
 provides:
   Lingua::Han::Cantonese:
     file: lib/Lingua/Han/Cantonese.pm
-    version: 0.07
+    version: '0.09'
 resources:
   license: http://dev.perl.org/licenses/
   repository: http://github.com/fayland/perl-lingua-han/tree/master
-version: 0.07
+version: '0.09'
