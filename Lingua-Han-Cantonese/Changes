@@ -1,5 +1,8 @@
 Revision history for Lingua-Han-Cantonese
 
+0.11  2015-11-30
+    - remove MYMETA
+
 0.10  2015-10-10
     - update unihan database
 

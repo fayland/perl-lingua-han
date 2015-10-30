@@ -18,8 +18,8 @@ name: Lingua-Han-Cantonese
 provides:
   Lingua::Han::Cantonese:
     file: lib/Lingua/Han/Cantonese.pm
-    version: '0.09'
+    version: '0.11'
 resources:
   license: http://dev.perl.org/licenses/
   repository: http://github.com/fayland/perl-lingua-han/tree/master
-version: '0.09'
+version: '0.11'

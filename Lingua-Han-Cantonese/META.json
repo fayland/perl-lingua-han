@@ -30,7 +30,7 @@
    "provides" : {
       "Lingua::Han::Cantonese" : {
          "file" : "lib/Lingua/Han/Cantonese.pm",
-         "version" : "0.09"
+         "version" : "0.11"
       }
    },
    "release_status" : "stable",
@@ -42,5 +42,5 @@
          "url" : "http://github.com/fayland/perl-lingua-han/tree/master"
       }
    },
-   "version" : "0.09"
+   "version" : "0.11"
 }
