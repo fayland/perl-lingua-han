@@ -3,7 +3,7 @@ package Lingua::Han::Cantonese;
 use warnings;
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.11';
+$VERSION = '0.12';
 
 use File::Spec;
 use Lingua::Han::Utils qw/Unihan_value/;
